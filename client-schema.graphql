@@ -1,0 +1,16 @@
+type Pokemons {
+  id: ID!
+  name: String
+  isBulbasaur: String
+}
+type Query {
+  cachePokemons: [Pokemons]
+}
+
+type Mutation {
+  setPokemons(id: Int, newName: String!): Pokemons
+}
+
+type Pokemon {
+  isBulbasaur: String!
+}
