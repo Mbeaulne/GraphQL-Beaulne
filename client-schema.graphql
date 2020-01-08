@@ -3,12 +3,9 @@ type Pokemons {
   name: String
   isBulbasaur: String
 }
-type Query {
-  cachePokemons: [Pokemons]
-}
 
 type Mutation {
-  setPokemons(id: Int, newName: String!): Pokemons
+  setPokemons(id: Int, newName: String!): Int
 }
 
 type Pokemon {
