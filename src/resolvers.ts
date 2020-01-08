@@ -1,11 +1,10 @@
 import { gql } from "@apollo/client";
 
-import { GET_POKEMONS } from "./graphql/queries";
-// import {
-//   Query as QueryResolver,
-//   Mutation as MutationResolver,
-//   Pokemon as PokemonResolver
-// } from "./generated/graphql";
+import {
+  MutationResolvers,
+  QueryResolvers,
+  PokemonResolvers
+} from "./generated/resolvers-types";
 
 export const resolvers = {
   Mutation: {
@@ -33,6 +32,7 @@ export const resolvers = {
           isBulbasaur: variables.newName === "Bulbasaur" ? "one" : "two"
         }
       });
+      return null;
     }
   },
   Query: {},
@@ -41,4 +41,8 @@ export const resolvers = {
       return parent.name! === "Bulbasaur" ? "one" : "two";
     }
   }
+} as {
+  Mutation: MutationResolvers;
+  Query: QueryResolvers;
+  Pokemon: PokemonResolvers;
 };

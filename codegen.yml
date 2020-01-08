@@ -5,13 +5,14 @@ schema:
 documents: "src/!(generated)/*.{tsx,ts}"
 generates:
   src/generated/graphql.tsx:
-    config:
-      noNamespaces: true
-      contextType: ../context#MyContext
-      withHooks: true
-      noHOC: true
-      noComponents: true
     plugins:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo"
+  ./graphql.schema.json:
+    plugins:
+      - "introspection"
+  ./src/generated/resolvers-types.ts:
+    plugins:
+      - "typescript"
+      - "typescript-resolvers"

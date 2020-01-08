@@ -3,7 +3,6 @@ import * as ApolloReactCommon from '@apollo/react-common';
 import * as React from 'react';
 import * as ApolloReactComponents from '@apollo/react-components';
 import * as ApolloReactHoc from '@apollo/react-hoc';
-import * as ApolloReactHooks from '@apollo/react-hooks';
 export type Maybe<T> = T | null;
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
@@ -24,7 +23,7 @@ export type Attack = {
 
 export type Mutation = {
    __typename?: 'Mutation',
-  setPokemons?: Maybe<Scalars['String']>,
+  setPokemons?: Maybe<Scalars['Int']>,
 };
 
 
@@ -81,21 +80,20 @@ export type Pokemons = {
 
 export type Query = {
    __typename?: 'Query',
-  cachePokemons?: Maybe<Array<Maybe<Pokemons>>>,
-  pokemon?: Maybe<Pokemon>,
-  pokemons?: Maybe<Array<Maybe<Pokemon>>>,
   query?: Maybe<Query>,
+  pokemons?: Maybe<Array<Maybe<Pokemon>>>,
+  pokemon?: Maybe<Pokemon>,
+};
+
+
+export type QueryPokemonsArgs = {
+  first: Scalars['Int']
 };
 
 
 export type QueryPokemonArgs = {
   id?: Maybe<Scalars['String']>,
   name?: Maybe<Scalars['String']>
-};
-
-
-export type QueryPokemonsArgs = {
-  first: Scalars['Int']
 };
 
 export type SetPokemonsMutationVariables = {
@@ -146,29 +144,6 @@ export function withSetPokemons<TProps, TChildProps = {}>(operationOptions?: Apo
       ...operationOptions
     });
 };
-
-/**
- * __useSetPokemonsMutation__
- *
- * To run a mutation, you first call `useSetPokemonsMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useSetPokemonsMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [setPokemonsMutation, { data, loading, error }] = useSetPokemonsMutation({
- *   variables: {
- *      id: // value for 'id'
- *      newName: // value for 'newName'
- *   },
- * });
- */
-export function useSetPokemonsMutation(baseOptions?: ApolloReactHooks.MutationHookOptions<SetPokemonsMutation, SetPokemonsMutationVariables>) {
-        return ApolloReactHooks.useMutation<SetPokemonsMutation, SetPokemonsMutationVariables>(SetPokemonsDocument, baseOptions);
-      }
-export type SetPokemonsMutationHookResult = ReturnType<typeof useSetPokemonsMutation>;
 export type SetPokemonsMutationResult = ApolloReactCommon.MutationResult<SetPokemonsMutation>;
 export type SetPokemonsMutationOptions = ApolloReactCommon.BaseMutationOptions<SetPokemonsMutation, SetPokemonsMutationVariables>;
 export const PokemonsDocument = gql`
@@ -176,7 +151,7 @@ export const PokemonsDocument = gql`
   pokemons(first: $first) {
     id
     name
-    isBulbasaur @client(always: true)
+    isBulbasaur @client
   }
 }
     `;
@@ -197,29 +172,4 @@ export function withPokemons<TProps, TChildProps = {}>(operationOptions?: Apollo
       ...operationOptions
     });
 };
-
-/**
- * __usePokemonsQuery__
- *
- * To run a query within a React component, call `usePokemonsQuery` and pass it any options that fit your needs.
- * When your component renders, `usePokemonsQuery` returns an object from Apollo Client that contains loading, error, and data properties 
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = usePokemonsQuery({
- *   variables: {
- *      first: // value for 'first'
- *   },
- * });
- */
-export function usePokemonsQuery(baseOptions?: ApolloReactHooks.QueryHookOptions<PokemonsQuery, PokemonsQueryVariables>) {
-        return ApolloReactHooks.useQuery<PokemonsQuery, PokemonsQueryVariables>(PokemonsDocument, baseOptions);
-      }
-export function usePokemonsLazyQuery(baseOptions?: ApolloReactHooks.LazyQueryHookOptions<PokemonsQuery, PokemonsQueryVariables>) {
-          return ApolloReactHooks.useLazyQuery<PokemonsQuery, PokemonsQueryVariables>(PokemonsDocument, baseOptions);
-        }
-export type PokemonsQueryHookResult = ReturnType<typeof usePokemonsQuery>;
-export type PokemonsLazyQueryHookResult = ReturnType<typeof usePokemonsLazyQuery>;
 export type PokemonsQueryResult = ApolloReactCommon.QueryResult<PokemonsQuery, PokemonsQueryVariables>;
